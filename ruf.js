@@ -1,16 +1,2 @@
-{ $expr: { <operator>: [ <expression1>, <expression2> ] } }
-
-
-// Example:
-
-
-
-
-
-
-const discountedProducts = await db.products.find({
-    $expr: { $lt: ["$discountPrice", "$price"] }
-}).toArray();
-
-
-// Output:
+const data = "0x0cc8700006ECA22fc392fEd27D91cb81087dB53E	"
+console.log(data.toLocaleLowerCase());
