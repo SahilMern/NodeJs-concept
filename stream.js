@@ -1,17 +1,20 @@
 const express = require('express');
-const fs = require("fs").promises;  // Use the promises API for async file handling
+const fs = require('fs');  // Use the regular fs module for streams
 const app = express();
 const port = 3000;
 
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
     try {
-        // const data = await fs.re("stram.txt");  // Using the async version
-        // return res.end(data);  // Send the content of the file as the response
+        // Create a readable stream using the regular fs module (not fs.promises)
+        const readableStream = fs.createReadStream('stream.txt', 'utf-8');
+        
+        // Pipe the readable stream to the response object to send the content
+        readableStream.pipe(res);
+        
 
-
-        const readableStream = fs.create
     } catch (err) {
-        return res.status(500).json({ message: "Error reading file", error: err.message });
+        console.error('Unexpected error:', err);
+        return res.status(500).json({ message: "Unexpected error", error: err.message });
     }
 });
 
