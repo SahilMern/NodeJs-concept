@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   images: [{
-    type: String // URL or path to the image
+    type: String 
   }],
   createdAt: {
     type: Date,
@@ -42,27 +42,11 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  tags: [{
-    type: String
-  }],
-  specifications: {
-    weight: {
-      type: String
-    },
-    dimensions: {
-      type: String
-    },
-    color: {
-      type: String
-    },
-    material: {
-      type: String
-    }
-  },
   discount: {
     type: Number,
     default: 0
-  }
+  },
+  
 });
 
 // Create a model from the schema
