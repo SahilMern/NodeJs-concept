@@ -193,4 +193,16 @@ app.get("/addfield", async (req, res) => {
     }
   });
   
+  db.products.aggregate([
+    { $match: { price: { $gte: 1000 } } },  // Filter products with price >= 1000
+    { $group: { 
+        _id: "$category", 
+        totalPrice: { $sum: "$price" },
+        averagePrice: { $avg: "$price" }
+    }},
+    { $sort: { totalPrice: -1 } },  // Sort by total price in descending order
+    { $limit: 5 },  // Limit the result to top 5 categories
+    { $project: { category: "$_id", totalPrice: 1, averagePrice: 1, _id: 0 } }  // Project result
+  ]);
+  
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
