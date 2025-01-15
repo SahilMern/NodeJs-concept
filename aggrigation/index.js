@@ -55,8 +55,142 @@ app.get("/group", async (req, res) => {
       },
     },
   ]);
+
   return res.status(200).json({
     data,
   });
 });
+
+app.get("/project", async (req, res) => {
+  try {
+    const data = await Product.aggregate([
+      {
+        $match: {
+          name: "Laptop Pro 15",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: 1,
+          category: 1,
+        },
+      },
+    ]);
+    return res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/sort", async (req, res) => {
+  try {
+    const data = await Product.aggregate([
+      {
+        $match: {
+          name: "Laptop Pro 15",
+        },
+      },
+      {
+        $sort: {
+          price: -1,
+        },
+      },
+    ]);
+    return res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/limit", async (req, res) => {
+  try {
+    const data = await Product.aggregate([
+      {
+        $match: {
+          name: "Laptop Pro 15", // Filter documents by product name
+        },
+      },
+      {
+        $sort: {
+          price: -1, // Sort by age in descending order
+        },
+      },
+      {
+        $limit: 1, // Limit the result to 2 documents
+      },
+    ]);
+
+    // Send the aggregated data as a response
+    return res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+    // Send a 500 status code in case of an error
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching data." });
+  }
+});
+app.get("/skip", async (req, res) => {
+  try {
+    const data = await Product.aggregate([
+      {
+        $match: {
+          name: "Laptop Pro 15", // Filter documents by product name
+        },
+      },
+      {
+        $sort: {
+          price: -1, // Sort by age in descending order
+        },
+      },
+      {
+        $limit: 1, // Limit the result to 2 documents
+      },
+      {
+        $skip: 1,
+      },
+    ]);
+
+    // Send the aggregated data as a response
+    return res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+    // Send a 500 status code in case of an error
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching data." });
+  }
+});
+
+
+app.get("/addfield", async (req, res) => {
+    try {
+      const data = await Product.aggregate([
+        {
+          $addFields: {
+            totalPrice:{
+                $multiply:["$price", 100]
+            }
+          } // Unwind the price array field
+        }
+      ]);
+  
+      return res.status(200).json({
+        data,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'An error occurred while processing the data.' });
+    }
+  });
+  
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
