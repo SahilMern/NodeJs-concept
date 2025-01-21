@@ -1,16 +1,32 @@
 {
   "name": "aggrigation",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+>>>>>>> 357e74817648bdc974373403ef3a7598e3bd8657
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+<<<<<<< HEAD
   "dependencies": {
     "express": "^4.21.2",
     "mongoose": "^8.9.4"
+=======
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9"
+>>>>>>> 357e74817648bdc974373403ef3a7598e3bd8657
   }
 }
