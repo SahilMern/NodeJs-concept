@@ -1,15 +1,13 @@
-const fs = require("fs")
-const readableStream  = fs.createReadStream("stream.txt", "utf-8")
-
-readableStream.on("data", (chunk) => {
-    console.log(chunk, "chunk data");
+const jwt = require("jsonwebtoken")
+const { log } = require("node:console")
+const screat_key = "sahilyadavsahilyadavsahilyadavsahilyadav"
+const data = async(req, res) => {
+    const userData = {
+        _id:1,
+        name:"sahil"
+    }
+    const user = await jwt.sign(userData, screat_key)
+    console.log(user);
     
-})
-
-readableStream.on("end", () => {
-    console.log('File reading completed!');
-})
-
-readableStream.on('error', (err) => {
-    console.error('Error reading file:', err);
-});
+}
+data()
