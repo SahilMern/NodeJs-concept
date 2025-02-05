@@ -9,4 +9,8 @@ require("./Db/connection/config");
 const nodemethod = require("./Routes/method.routes");
 app.use("/api/v1", nodemethod);
 
+
+// workingWithMiddleware 
+const middlewareWorking = require("./Routes/middlewareWork.routes")
+app.use("/api/middleware", middlewareWorking)
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

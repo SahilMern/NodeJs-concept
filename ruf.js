@@ -9,4 +9,4 @@ const verify = jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEs
 
 console.log(verify, "verify");
 
-req.headers["a"]
+// req.headers["a"]
