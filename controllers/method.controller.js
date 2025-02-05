@@ -56,32 +56,43 @@ const logical = async (req, res) => {
 const expression = async (req, res) => {
   try {
     const data = await Product.find({
-    //   $expr: [($get: 2000)],
+      $expr:{
+        $gt:[
+          {
+            
+          }
+        ]
+      }
     });
   } catch (error) {
     console.log(error);
   }
 };
 
-const updateDocument = async(req, res) =>{
+const updateDocument = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const updateDocumnet = await Product.findOne({_id:id}, {
-      $set:{name:"n"}
-    })
+    const updateDocumnet = await Product.findOne(
+      { _id: id },
+      {
+        $set: { name: "n" },
+      }
+    );
     // console.log(updateDocument);
 
-    
-
     return res.status(200).json({
-      updateDocumnet
-    })
+      updateDocumnet,
+    });
   } catch (error) {
     console.log(error, "error");
-    
   }
-}
+};
 
-
-module.exports = { cursormethod, comparison, logical, expression, updateDocument };
+module.exports = {
+  cursormethod,
+  comparison,
+  logical,
+  expression,
+  updateDocument,
+};
