@@ -10,10 +10,14 @@ const cursormethod = async (req, res) => {
   const sort = await Product.find({ category: "Electronics" }).sort({
     price: -1,
   });
+
+  const skip = await Product.find({category:"Electronics"}).limit(5).skip(2)
+
   return res.status(200).json({
     count,
     limit,
     sort,
+    skip
   });
 };
 
@@ -89,10 +93,23 @@ const updateDocument = async (req, res) => {
   }
 };
 
+
+const allDocument =  async (rrq, res) => {
+  try {
+    // const data = await Product.find({})
+    const data = await Product.find({tags:{$all: ["smartwatch", "fitness"]}})
+    console.log(data, "data In $all");
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 module.exports = {
   cursormethod,
   comparison,
   logical,
   expression,
   updateDocument,
+  allDocument
 };
