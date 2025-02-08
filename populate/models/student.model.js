@@ -11,10 +11,10 @@ const studentSchema = mongoose.Schema({
   },
   enrolled_courses: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "course",  // This will refer to the Course model
+    ref: "coursepopulate",  // This will refer to the Course model
     required: true,
   }],
 });
 
-const Student = mongoose.model("student", studentSchema);
+const Student = mongoose.model("studentpopulate", studentSchema);
 module.exports = Student;

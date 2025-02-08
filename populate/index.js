@@ -13,18 +13,20 @@ app.post("/registerCourse", async (req, res) => {
     console.log(courseId, name, duration);
 
     const courseData = new Course({
-      courseId, name, duration
+      courseId,
+      name,
+      duration,
     });
     const data = await courseData.save();
     return res.status(200).json({
       message: "Course added successfully",
-      data
+      data,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       message: "An error occurred",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -36,18 +38,20 @@ app.post("/registerStudent", async (req, res) => {
     console.log(studentId, name, enrolled_courses);
 
     const studentData = new Student({
-      studentId, name, enrolled_courses
+      studentId,
+      name,
+      enrolled_courses,
     });
     const data = await studentData.save();
     return res.status(200).json({
       message: "Student registered successfully",
-      data
+      data,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       message: "An error occurred",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -55,15 +59,25 @@ app.post("/registerStudent", async (req, res) => {
 // Get Student Data and Populate Enrolled Courses
 app.get("/populate", async (req, res) => {
   try {
-    const data = await Student.find({}).populate("enrolled_courses");
+    const data = await Student.find({}).populate({
+      path: "enrolled_courses",
+      // match: {
+      //   courseId: "JAVADEVELOPER",
+      //   duration:180
+      // },
+      // match:{
+      //   courseId:{$regex:".*mern.", $options:"i"}
+      // }
+      select:["name", "-_id"]
+    });
     return res.status(200).json({
-      data
+      data,
     });
   } catch (error) {
     console.log(error, "error");
     return res.status(500).json({
       message: "An error occurred",
-      error: error.message
+      error: error.message,
     });
   }
 });
