@@ -1,22 +1,23 @@
 const express = require("express");
-const ProductsPop = require("./models/product.model");
-const UserPop = require("./models/user.model");
+const Course = require("./models/course.model");
+const Student = require("./models/student.model");
 const app = express();
 const port = 3000;
 app.use(express.json());
 require("../Db/connection/config");
 
-app.post("/registerProducts", async (req, res) => {
+// Register Course
+app.post("/registerCourse", async (req, res) => {
   try {
-    const { productId, name, price } = req.body;
-    console.log(productId, name, price);
+    const { courseId, name, duration } = req.body;
+    console.log(courseId, name, duration);
 
-    const productData = new ProductsPop({
-      productId, name, price
+    const courseData = new Course({
+      courseId, name, duration
     });
-    const data = await productData.save();
+    const data = await courseData.save();
     return res.status(200).json({
-      message: "Product added successfully",
+      message: "Course added successfully",
       data
     });
   } catch (error) {
@@ -28,17 +29,18 @@ app.post("/registerProducts", async (req, res) => {
   }
 });
 
-app.post("/registerUser", async (req, res) => {
+// Register Student
+app.post("/registerStudent", async (req, res) => {
   try {
-    const { userId, name, buy_products } = req.body;
-    console.log(userId, name, buy_products);
+    const { studentId, name, enrolled_courses } = req.body;
+    console.log(studentId, name, enrolled_courses);
 
-    const userData = new UserPop({
-      userId, name, buy_products
+    const studentData = new Student({
+      studentId, name, enrolled_courses
     });
-    const data = await userData.save();
+    const data = await studentData.save();
     return res.status(200).json({
-      message: "User registered successfully",
+      message: "Student registered successfully",
       data
     });
   } catch (error) {
@@ -50,9 +52,10 @@ app.post("/registerUser", async (req, res) => {
   }
 });
 
+// Get Student Data and Populate Enrolled Courses
 app.get("/populate", async (req, res) => {
   try {
-    const data = await UserPop.find({}).populate("buy_products");
+    const data = await Student.find({}).populate("enrolled_courses");
     return res.status(200).json({
       data
     });
