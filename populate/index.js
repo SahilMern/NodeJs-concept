@@ -68,7 +68,13 @@ app.get("/populate", async (req, res) => {
       // match:{
       //   courseId:{$regex:".*mern.", $options:"i"}
       // }
-      select:["name", "-_id"]
+      // select:["name", "-_id"]
+      options:{
+        sort:{
+          name:-1,
+        },
+        limit:1
+      }
     });
     return res.status(200).json({
       data,
