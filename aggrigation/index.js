@@ -1,5 +1,4 @@
 
-const express = require("express");
 const Product = require("./models/products");
 const mongoose = require("mongoose");
 const app = express();
