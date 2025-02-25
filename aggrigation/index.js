@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 const express = require("express");
 const Product = require("./models/products");
 const mongoose = require("mongoose");
@@ -209,4 +207,3 @@ app.get("/addfield", async (req, res) => {
   ]);
   
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
->>>>>>> 357e74817648bdc974373403ef3a7598e3bd8657
