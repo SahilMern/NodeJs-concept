@@ -9,10 +9,6 @@ require("./Db/connection/config");
 //? Find all documents where the price is greater than 1000.
 // const productData = await Product.find({ price: { $gt: 1000 } });
 
-// Find products that have no subcategory assigned (i.e., subCategory is null or undefined).
-// Get all products where updatedAt is more than 30 days ago.
-// Retrieve products with images that are not empty (i.e., the images array is not empty).
-
 app.get("/", async (req, res) => {
   try {
     //!GLOBAL
@@ -61,6 +57,29 @@ app.get("/", async (req, res) => {
     // });
     // console.log(new Date("2023-03-01"));
 
+    //? Find products that have no subcategory assigned (i.e., subCategory is null or undefined).
+    // const productData = await Product.find({
+    //   $or: [{ subCategory: null }, { subCategory: { $exists: false } }],
+    // });
+
+    //! Get all products where updatedAt is more than 30 days ago.
+
+    //? Retrieve products with images that are not empty (i.e., the images array is not empty).
+    const productData = await Product.find({
+      images: { $exists: true, $not: { $size: 0 } },
+    });
+
+    // $exists: Field exists or not.
+    // $size: Array size.
+    // $gt, $gte, $lt, $lte: Comparison.
+    // $in, $nin: List membership.
+    // $and, $or, $nor, $not: Logical conditions.
+    // $regex: Pattern matching.
+    // $elemMatch: Array element matching.
+    // $type: Type of a field.
+    // $addToSet, $push: Array modification.
+    // $unset: Removing fields.
+    // $rename: Renaming fields.
     return res.status(200).json({
       message: "All prdouct data",
       productData,
