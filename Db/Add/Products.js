@@ -12,7 +12,7 @@ mongoose
 
 // Example to insert a new product
 const newProduct = new Product({
-    name: 'Smartwatch Pro',
+    name: 'New product',
     description: 'Smartwatch with fitness tracking, heart rate monitor, and long battery life',
     category: 'Wearable Technology',
     subCategory: 'Smartwatches',

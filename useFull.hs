@@ -7,21 +7,7 @@ const Product = require("./models/Products.model")
 
 app.get("/getprdouct",async(req, res) => {
   try {
-    const data = await Product.aggregate([
-      {
-        $match:{
-          name:"Smartphone XYZ"
-        }
-        // $group:{
-        // _id:"$name"
-        // }
-      }, {
-        $project: {
-          _id: 0,
-          name:1
-        }
-      }
-    ])
+    const data = await Product.find({})
     return res.status(200).json({data})
   } catch (error) {
     console.log(error);
@@ -37,7 +23,7 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 // const mongoose = require('mongoose');
 // const Product = require("./models/Products.model")
 // // Connect to MongoDB
-// mongoose.connect('mongodb://localhost:27017/nodejs', { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect('mongodb://localhost:27017/your_database_name', { useNewUrlParser: true, useUnifiedTopology: true })
 //   .then(() => console.log('Connected to MongoDB'))
 //   .catch(err => console.log('Error connecting to MongoDB:', err));
 
