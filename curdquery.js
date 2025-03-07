@@ -4,17 +4,26 @@ const app = express();
 const port = 9080;
 require("./Db/connection/config");
 
-// Filter products based on multiple conditions (e.g., availability, category) and sort by price.
 // Populate related documents (e.g., reviews) and calculate the average rating for each product.
+
 // Use $lookup to join data from another collection (e.g., product reviews) and aggregate data (e.g., average rating).
+
 // Find products created within a specific date range (createdAt) and sort them by the most recent.
+
 // Aggregate the total number of products in each subcategory and sort by the highest count.
+
 // Use $match to filter products by a specific price range and apply a discount to the price before returning results.
+
 // Find products that have a non-zero discount and are available, then sort them by discount percentage.
+
 // Filter products by a combination of category, subcategory, and brand, then sort by price in ascending order.
+
 // Apply $project to exclude unnecessary fields and include only certain fields (e.g., name, price, finalPrice).
+
 // Count the number of products with a specific brand and display the total.
+
 // Perform a text search on product descriptions or names and return the sorted results.
+
 // Update a field (updatedAt) when products are updated and return the updated documents.
 
 app.get("/", async (req, res) => {
@@ -46,6 +55,24 @@ app.get("/", async (req, res) => {
     //   },
     // ]);
 
+    //? Filter products based on multiple conditions (e.g., availability, category) and sort by price.
+    // const productCurd = await Product.find({
+    //     isAvailable:true,
+    //     category:"Mobile"
+    // })
+
+    //? Getting particular field
+    // const productCurd = await Product.find({}).select("name category -_id");
+
+    const id = "67c9feddd214f0d0621615ac";
+    const productCurd = await Product.findByIdAndUpdate(id, {
+      $set: {
+        hey: "hhh"
+      }
+    }, { new: true }); // Optionally return the updated document
+    
+    console.log(productCurd, "productCurd");
+    
     return res.status(200).json({
       message: "Product record",
       productCurd,
