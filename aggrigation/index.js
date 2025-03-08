@@ -1,4 +1,3 @@
-
 const Product = require("./models/products");
 const mongoose = require("mongoose");
 const app = express();
@@ -171,38 +170,41 @@ app.get("/skip", async (req, res) => {
   }
 });
 
-
 app.get("/addfield", async (req, res) => {
-    try {
-      const data = await Product.aggregate([
-        {
-          $addFields: {
-            totalPrice:{
-                $multiply:["$price", 100]
-            }
-          } // Unwind the price array field
-        }
-      ]);
-  
-      return res.status(200).json({
-        data,
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'An error occurred while processing the data.' });
-    }
-  });
-  
-  db.products.aggregate([
-    { $match: { price: { $gte: 1000 } } },  // Filter products with price >= 1000
-    { $group: { 
-        _id: "$category", 
-        totalPrice: { $sum: "$price" },
-        averagePrice: { $avg: "$price" }
-    }},
-    { $sort: { totalPrice: -1 } },  // Sort by total price in descending order
-    { $limit: 5 },  // Limit the result to top 5 categories
-    { $project: { category: "$_id", totalPrice: 1, averagePrice: 1, _id: 0 } }  // Project result
-  ]);
-  
+  try {
+    const data = await Product.aggregate([
+      {
+        $addFields: {
+          totalPrice: {
+            $multiply: ["$price", 100],
+          },
+        }, // Unwind the price array field
+      },
+    ]);
+
+    return res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while processing the data." });
+  }
+});
+
+db.products.aggregate([
+  { $match: { price: { $gte: 1000 } } }, // Filter products with price >= 1000
+  {
+    $group: {
+      _id: "$category",
+      totalPrice: { $sum: "$price" },
+      averagePrice: { $avg: "$price" },
+    },
+  },
+  { $sort: { totalPrice: -1 } }, // Sort by total price in descending order
+  { $limit: 5 }, // Limit the result to top 5 categories
+  { $project: { category: "$_id", totalPrice: 1, averagePrice: 1, _id: 0 } }, // Project result
+]);
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
