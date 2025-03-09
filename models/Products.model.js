@@ -46,10 +46,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  extraField:{
-    type: String,
-    required: true
-  }
+
 });
 
 // Create a model from the schema

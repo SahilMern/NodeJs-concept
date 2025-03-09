@@ -83,9 +83,9 @@ app.delete("/:id", async (req, res) => {
 //$set first use
 app.get("/addfield", async (req, res) => {
   try {
-    const product = await Product.updateOne({
+    const product = await Product.updateMany({
       $set: {
-        value: "sahils",
+        extraField: "sahils",
       },
     });
     return res.status(200).json({
@@ -96,4 +96,38 @@ app.get("/addfield", async (req, res) => {
     console.log(error, "error");
   }
 });
+app.get("/removefield", async (req, res) => {
+  try {
+    const product = await Product.updateMany({
+      $unset: { extraField: "" },
+    });
+    return res.status(200).json({
+      message: "Product updated successfully",
+      data: product,
+    });
+  } catch (error) {
+    console.log(error, "error");
+  }
+});
+
+app.get("/getAllproductInArray", async (req, res) => {
+  try {
+    const product = await Product.find({});
+    return res.status(200).json({
+      message: "Product updated successfully",
+      data: product,
+    });
+  } catch (error) {
+    console.log(error, "error");
+  }
+});
+
+
+// app.delete("/:all", async(req, res) => {
+//     console.log("hey");
+    
+// })
+  
+  
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
