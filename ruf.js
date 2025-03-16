@@ -1,10 +1,3 @@
-
-// Find products by category and subcategory, limit the number of results
-// Find products with keyword match in the description
-// Aggregate products to get the average price
-// Find products that have at least one image
-// Find products by multiple brand names
-
 console.log("JAI SHREE RAM JI / JAI BAJARANG BALI JI");
 const express = require("express");
 const Product = require("./models/Products.model");
@@ -57,6 +50,44 @@ app.get("/", async (req, res) => {
     // }).sort({
     //   price:1
     // }).limit(1);
+    //? Count total available products by category
+    // const productData = await Product.countDocuments({
+    //   isAvailable: true,
+    //   category: "Electronics", // Replace 'Electronics' with your desired category
+    // });
+
+    //? Find products with a specific subcategory
+    // const productData = await Product.find({
+    //   subCategory:"Audio"
+    // });
+    //? Update product price by product ID
+    // const productID = "67cca29fc255524d358a5474";
+    // const productData = await Product.findByIdAndUpdate(
+    //   { _id: productID },
+    //   {
+    //     price: 198.99,
+    //   },
+    //   { new: true }
+    // );
+    //? Delete products that are out of stock
+    //     const productData = await Product.deleteMany({
+    //       isAvailable:false
+    // });
+
+    //? Find products by category and subcategory, limit the number of results
+    // const productData = await Product.find({
+    //   category:"Electronics",
+    //   subCategory:"Laptops"
+    // }).limit(2);
+
+    //? Find products with keyword match in the description
+    const productData = await Product.find({
+      category:"Electronics",
+      subCategory:"Laptops"
+    })
+    // Aggregate products to get the average price
+    // Find products that have at least one image
+    // Find products by multiple brand names
     return res.status(200).json({
       message: "Data send succefully",
       productData,
