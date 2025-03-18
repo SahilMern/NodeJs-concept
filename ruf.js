@@ -1,38 +1,35 @@
-const express = require('express')
-const app = express()
-const port = 3000
-require("./Db/connection/config");
-const Product = require("./models/Products.model")
-// console.log(Product, "Product");
+// const express = require('express')
+// const app = express()
+// const port = 3000
+// require("./Db/connection/config");
+// const Product = require("./models/Products.model")
+// // console.log(Product, "Product");
 
-app.get("/getprdouct",async(req, res) => {
-  try {
-    const data = await Product.aggregate([
-      {
-        $match:{
-          name:"Smartphone XYZ"
-        }
-        // $group:{
-        // _id:"$name"
-        // }
-      }, {
-        $project: {
-          _id: 0,
-          name:1
-        }
-      }
-    ])
-    return res.status(200).json({data})
-  } catch (error) {
-    console.log(error);
-    
-  }
-})
+// app.get("/getprdouct",async(req, res) => {
+//   try {
+//     const data = await Product.aggregate([
+//       {
+//         $match:{
+//           name:"Smartphone XYZ"
+//         }
+//         // $group:{
+//         // _id:"$name"
+//         // }
+//       }, {
+//         $project: {
+//           _id: 0,
+//           name:1
+//         }
+//       }
+//     ])
+//     return res.status(200).json({data})
+//   } catch (error) {
+//     console.log(error);
 
+//   }
+// })
 
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
+// app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 // const mongoose = require('mongoose');
 // const Product = require("./models/Products.model")
@@ -110,3 +107,4 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 //     console.log('Error inserting products:', err);
 //     mongoose.disconnect();  // Disconnect in case of error
 //   });
+
