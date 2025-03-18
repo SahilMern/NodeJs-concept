@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const Product = require("./models/Products.model")
+const Product = require('../models/Products.model'); // Ensure the path to your model is correct
 
+// Product data
 const products = [
   {
     name: "Smartphone XYZ",
@@ -11,7 +12,8 @@ const products = [
     isAvailable: true,
     brand: "BrandA",
     images: ["image1.jpg", "image2.jpg"],
-    discount: 10
+    discount: 10,
+    colors: ["red", "black", "blue"]
   },
   {
     name: "Laptop ABC",
@@ -22,7 +24,8 @@ const products = [
     isAvailable: true,
     brand: "BrandB",
     images: ["laptop1.jpg", "laptop2.jpg"],
-    discount: 5
+    discount: 5,
+    colors: ["gray", "black"]
   },
   {
     name: "Wireless Headphones",
@@ -33,7 +36,8 @@ const products = [
     isAvailable: true,
     brand: "BrandC",
     images: ["headphones1.jpg", "headphones2.jpg"],
-    discount: 15
+    discount: 15,
+    colors: ["black", "white"]
   },
   {
     name: "Smartwatch Pro",
@@ -44,7 +48,8 @@ const products = [
     isAvailable: true,
     brand: "BrandD",
     images: ["watch1.jpg", "watch2.jpg"],
-    discount: 20
+    discount: 20,
+    colors: ["black", "silver", "gold"]
   },
   {
     name: "Gaming Console",
@@ -55,17 +60,25 @@ const products = [
     isAvailable: false,
     brand: "BrandE",
     images: ["console1.jpg", "console2.jpg"],
-    discount: 25
-  }
+    discount: 25,
+    colors: ["black", "white"]
+  },
+  // Add more product objects as needed...
 ];
 
-// Insert the products into MongoDB
-Product.insertMany(products)
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/nodejs', {})
+  .then(() => {
+    console.log('Connected to MongoDB');
+
+    // Insert the products into MongoDB
+    return Product.insertMany(products);
+  })
   .then(() => {
     console.log('Products added successfully');
-    mongoose.disconnect();  // Disconnect after inserting the data
+    mongoose.disconnect(); // Disconnect after inserting the data
   })
   .catch(err => {
     console.log('Error inserting products:', err);
-    mongoose.disconnect();  // Disconnect in case of error
+    mongoose.disconnect(); // Disconnect in case of error
   });
