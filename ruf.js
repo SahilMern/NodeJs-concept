@@ -4,6 +4,7 @@ const Product = require("./models/Products.model");
 const app = express();
 const port = 9000;
 require("./Db/connection/config");
+
 app.get("/", async (req, res) => {
   try {
     // console.log("I am hitted");
@@ -224,10 +225,22 @@ app.get("/", async (req, res) => {
 
     // Find products with a specific keyword match in the description and sort by creation date
     //? Count products by availability (e.g., how many are in stock vs out of stock)
-    const productData = await Product.find({
-      isAvailable:true
-    });
+    // const productData = await Product.find({
+    //   isAvailable: true,
+    // });
 
+    // --------------------------------------------------------------------------------
+    // const productData = await Product.findOne({})
+    // const newProduct = await Product.create({
+    //   name,
+    //   price,
+    //   description,
+    // });
+
+    // Respond with the saved product data
+    return res.status(201).json(newProduct);
+
+    // Insert multiple products
     return res.status(200).json({
       message: "Data send succefully",
       productData,

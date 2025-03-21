@@ -8,7 +8,7 @@ app.use(express.json());
 //?Updateing the product data
 app.put("/:id", async (req, res) => {
   try {
-    const id = req.params.id; // Extract the ID from the URL
+    const id = req.params.id; 
     const {
       name,
       description,
@@ -18,11 +18,9 @@ app.put("/:id", async (req, res) => {
       brand,
       images,
       discount,
-    } = req.body; // Extract the fields to be updated
+    } = req.body; 
 
-    // Create an update object, which will only contain the fields that were provided
     const updateData = {};
-
     if (name) updateData.name = name;
     if (description) updateData.description = description;
     if (category) updateData.category = category;
@@ -122,12 +120,8 @@ app.get("/getAllproductInArray", async (req, res) => {
   }
 });
 
+const { name, price } = req.body;
+  
 
-// app.delete("/:all", async(req, res) => {
-//     console.log("hey");
-    
-// })
-  
-  
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
